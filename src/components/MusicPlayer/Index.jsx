@@ -1,5 +1,5 @@
 import styles from './MusicPlayer.module.css'
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { FaPlay, FaPause } from "react-icons/fa"
 import { BiSkipPrevious, BiSkipNext } from "react-icons/bi"
 import PlayerBtn from './PlayerBtn/index'
@@ -46,16 +46,18 @@ const MusicPlayer = () => {
         return `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`
     }
 
-    return (
-        <div className={styles.MusicPlayer}>
-            {/* <audio
-                src={music}
-                ref={audioRef}
-                onLoadedMetadata={handleLoadedMetadata}
-                onTimeUpdate={handleTimeUpdate}
-                controls={true} // Desabilita os controles padrão
-            /> */}
+    const togglePlay = () => {
+        if (audioRef.current.paused) {
+            audioRef.current.play()
+        } else {
+            audioRef.current.pause()
+        }
+    }
 
+    useEffect(() => {console.log(music)}, [])
+
+    return (
+        <div className={styles.MusicPlayer} >
             <Player
                 src={music}
                 reference={audioRef}
@@ -80,22 +82,21 @@ const MusicPlayer = () => {
                     </PlayerBtn>
                 </li>
                 <li>
-                    <PlayerBtn onClick={() => audioRef.current.play()}>
-                        <FaPlay />
+                    <PlayerBtn onClick={togglePlay}>
+                        {
+                            audioRef.current?.paused
+                                ? <FaPlay />
+                                : <FaPause />
+                        }
                     </PlayerBtn>
                 </li>
-                {/* <li>
-                    <PlayerBtn onClick={() => audioRef.current.pause()}>
-                        <FaPause />
-                    </PlayerBtn>
-                </li> */}
                 <li>
                     <PlayerBtn >
                         <BiSkipNext />
                     </PlayerBtn>
                 </li>
             </ul>
-        </div>
+        </ div>
     )
 }
 
