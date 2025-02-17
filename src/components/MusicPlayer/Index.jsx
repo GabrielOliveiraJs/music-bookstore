@@ -1,18 +1,18 @@
 import styles from './MusicPlayer.module.css'
-import { useEffect, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import { FaPlay, FaPause } from "react-icons/fa"
 import { BiSkipPrevious, BiSkipNext } from "react-icons/bi"
 import PlayerBtn from './PlayerBtn/index'
 import MusicBar from './MusicBar/Index'
 import Player from './Player/Index'
+import MusicInfo from './MusicInfo/Index'
 import music from '../../assets/musics/Firework - Katy Perry (Cover by First To Eleven).mp3'
 
 const musics = [
     {
         id: 1,
-        title: 'Firework',
-        singer: 'Katy Perry (Cover by First To Eleven)',
-        src: music
+        title: 'Firework - Katy Perry (Cover by First To Eleven)',
+        src: '../../assets/musics/Firework - Katy Perry (Cover by First To Eleven).mp3'
     }
 ]
 
@@ -54,34 +54,32 @@ const MusicPlayer = () => {
         }
     }
 
-    useEffect(() => {console.log(music)}, [])
-
     return (
-        <div className={styles.MusicPlayer} >
-            <Player
-                src={music}
-                reference={audioRef}
-                onLoadedMetadata={handleLoadedMetadata}
-                onTimeUpdate={handleTimeUpdate}
-            />
+        <section className={styles.MusicPlayer}>
+            <div className={styles.MusicPlayer__player}>
+                <Player
+                    src={music}
+                    reference={audioRef}
+                    onLoadedMetadata={handleLoadedMetadata}
+                    onTimeUpdate={handleTimeUpdate}
+                />
 
-            <MusicBar
-                duration={duration}
-                currentTime={currentTime}
-                onChange={handleSeek}
-            />
+                <MusicInfo title={musics[0].title} />
 
-            <div>
-                <span>{formatTime(currentTime)}</span> / <span>{formatTime(duration)}</span>
-            </div>
+                <MusicBar
+                    duration={duration}
+                    currentTime={currentTime}
+                    onChange={handleSeek}
+                />
 
-            <ul className={styles.MusicPlayer__controls}>
-                <li>
+                <div>
+                    <span>{formatTime(currentTime)}</span> / <span>{formatTime(duration)}</span>
+                </div>
+
+                <div className={styles.MusicPlayer__controls}>
                     <PlayerBtn >
                         <BiSkipPrevious />
                     </PlayerBtn>
-                </li>
-                <li>
                     <PlayerBtn onClick={togglePlay}>
                         {
                             audioRef.current?.paused
@@ -89,14 +87,12 @@ const MusicPlayer = () => {
                                 : <FaPause />
                         }
                     </PlayerBtn>
-                </li>
-                <li>
                     <PlayerBtn >
                         <BiSkipNext />
                     </PlayerBtn>
-                </li>
-            </ul>
-        </ div>
+                </div>
+            </div>
+        </ section>
     )
 }
 

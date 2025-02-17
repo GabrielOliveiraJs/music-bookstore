@@ -1,15 +1,18 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 import BasePage from "./pages/BasePage/Index"
-import MusicList from "./pages/MusicList/Index"
+import MusicPage from "./pages/MusicPage/Index"
+import MusicListProvider from "./Contexts/musicList"
 
 const AppRoutes = () => {
     return (
         <BrowserRouter>
-            <Routes>
-                <Route path="/" element={<BasePage />}>
-                    <Route index element={<MusicList />} />
-                </Route>
-            </Routes>
+            <MusicListProvider>
+                <Routes>
+                    <Route path="/" element={<BasePage />}>
+                        <Route index element={<MusicPage />} />
+                    </Route>
+                </Routes>
+            </MusicListProvider>
         </BrowserRouter>
     )
 }

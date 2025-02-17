@@ -7,7 +7,7 @@ const Player = ({onLoadedMetadata, onTimeUpdate, reference, src}) => {
             ref={reference}
             onLoadedMetadata={onLoadedMetadata}
             onTimeUpdate={onTimeUpdate}
-            controls={true} // Desabilita/Habilita os controles padrão
+            controls={false} // Desabilita/Habilita os controles padrão
         />
     )
 }

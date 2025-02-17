@@ -1,0 +1,28 @@
+.musicList {
+    height: 400px;
+    flex: 1;
+    padding: 10px;
+    border: 1px solid var(--white);
+    overflow-y: scroll;
+}
+
+.musicList__list {
+    height: calc(400px - 20px);
+}
+
+.musicList__item {
+    border: 1px solid var(--green);
+    padding: 1rem;
+    margin: 0.5rem 0;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+.musicList__item:hover {
+    box-shadow: 2px 2px 5px var(--green);
+}
+
+.musicList__item.active {
+    background-color: var(--green);
+    color: var(--black);
+}

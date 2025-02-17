@@ -1,11 +1,11 @@
 import styles from './BasePage.module.css'
-import MusicsList from '../MusicList/Index'
+import MusicPage from '../MusicPage/Index'
 
 const BasePage = () => {
     return (
-        <main className={styles.mainContainer}>
-            <MusicsList />
-        </main>
+        <section className={styles.mainContainer}>
+            <MusicPage />
+        </section>
     )
 }
 
