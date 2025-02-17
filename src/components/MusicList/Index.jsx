@@ -1,14 +1,10 @@
 import styles from './MusicList.module.css'
-import { useState } from 'react'
 import { useMusicListContext } from '../../Contexts/musicList'
+import { useSelectMusic } from '../../Hooks/useSelectMusic'
 
 const MusicList = () => {
-  const [activeMusicId, setActiveMusicId] = useState(null)
   const { musicList } = useMusicListContext()
-
-  const selectMusic = (id) => {
-    setActiveMusicId(id)
-  }
+  const { selectMusic, activeMusicId } = useSelectMusic()
 
   return (
     <section className={styles.musicList}>
