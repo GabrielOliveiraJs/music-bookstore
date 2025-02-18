@@ -6,23 +6,27 @@ MusicListContext.displayName = 'MusicList'
 
 export default function MusicListProvider({ children }) {
     const [musicList, setMusicList] = useState([])
-
+    const [selectedMusic, setSelectedMusic] = useState(null)
+    
     useEffect(() => {
         setMusicList(musics)
+        setSelectedMusic(musics[0])
     }, [])
 
     return (
-        <MusicListContext.Provider value={{ musicList, setMusicList }}>
+        <MusicListContext.Provider value={{ musicList, setMusicList, selectedMusic, setSelectedMusic }}>
             {children}
         </MusicListContext.Provider>
     )
 }
 
 export function useMusicListContext() {
-    const { musicList, setMusicList } = useContext(MusicListContext)
+    const { musicList, setMusicList, selectedMusic, setSelectedMusic } = useContext(MusicListContext)
 
     return {
         musicList,
-        setMusicList
+        setMusicList, 
+        selectedMusic, 
+        setSelectedMusic
     }
 }

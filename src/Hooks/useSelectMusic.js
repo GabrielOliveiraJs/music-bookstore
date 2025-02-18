@@ -1,14 +1,14 @@
 import { useState } from "react"
+import { useMusicListContext } from "../Contexts/MusicList"
 
 export function useSelectMusic() {
-const [activeMusicId, setActiveMusicId] = useState(null)
+    const { setSelectedMusic } = useMusicListContext()
 
-    const selectMusic = (musicId) => {
-        setActiveMusicId(musicId)
+    const selectMusic = (music) => {
+        setSelectedMusic(music)
     }
 
     return {
-        selectMusic,
-        activeMusicId
+        selectMusic
     }
 }

@@ -10,24 +10,18 @@ import music from '../../assets/musics/Firework - Katy Perry (Cover by First To 
 import { useMusicPlayerContext } from '../../Contexts/MusicPlayer'
 import { usePlayerFunctions } from '../../Hooks/usePlayerFunctions'
 import Timer from './Timer/Index'
-
-const musics = [
-    {
-        id: 1,
-        title: 'Firework - Katy Perry (Cover by First To Eleven)',
-        src: '../../assets/musics/Firework - Katy Perry (Cover by First To Eleven).mp3'
-    }
-]
+import { useMusicListContext } from '../../Contexts/MusicList'
 
 const MusicPlayer = () => {
     const { audioRef } = useMusicPlayerContext()
     const { togglePlay } = usePlayerFunctions()
+    const { selectedMusic } = useMusicListContext()
 
     return (
         <section className={styles.MusicPlayer}>
             <div className={styles.MusicPlayer__player}>
-                <Player src={music} />
-                <MusicInfo title={musics[0].title} />
+                <Player />
+                <MusicInfo title={selectedMusic && selectedMusic.title} />
                 <MusicBar />
                 <Timer />
                 <div className={styles.MusicPlayer__controls}>
