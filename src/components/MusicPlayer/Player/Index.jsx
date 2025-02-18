@@ -1,12 +1,15 @@
-import React from 'react'
+import { useMusicPlayerContext } from '../../../Contexts/MusicPlayer'
+import { usePlayerFunctions } from '../../../Hooks/usePlayerFunctions'
 
-const Player = ({onLoadedMetadata, onTimeUpdate, reference, src}) => {
+const Player = ({ src }) => {
+    const { audioRef } = useMusicPlayerContext()
+    const { handleLoadedMetadata, handleTimeUpdate } = usePlayerFunctions()
     return (
         <audio
             src={src}
-            ref={reference}
-            onLoadedMetadata={onLoadedMetadata}
-            onTimeUpdate={onTimeUpdate}
+            ref={audioRef}
+            onLoadedMetadata={handleLoadedMetadata}
+            onTimeUpdate={handleTimeUpdate}
             controls={false} // Desabilita/Habilita os controles padrão
         />
     )

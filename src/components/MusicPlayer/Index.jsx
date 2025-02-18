@@ -7,7 +7,9 @@ import MusicBar from './MusicBar/Index'
 import Player from './Player/Index'
 import MusicInfo from './MusicInfo/Index'
 import music from '../../assets/musics/Firework - Katy Perry (Cover by First To Eleven).mp3'
-import { useAudioRefContext } from '../../Contexts/AudioRef'
+import { useMusicPlayerContext } from '../../Contexts/MusicPlayer'
+import { usePlayerFunctions } from '../../Hooks/usePlayerFunctions'
+import Timer from './Timer/Index'
 
 const musics = [
     {
@@ -18,65 +20,16 @@ const musics = [
 ]
 
 const MusicPlayer = () => {
-    const { audioRef } = useAudioRefContext()
-    const [duration, setDuration] = useState(0) // Duração total da música
-    const [currentTime, setCurrentTime] = useState(0) // Tempo atual da música
-
-    const handleLoadedMetadata = () => {
-        if (audioRef.current) {
-            setDuration(audioRef.current.duration) // Duração em segundos
-        }
-    }
-
-    const handleTimeUpdate = () => {
-        if (audioRef.current) {
-            setCurrentTime(audioRef.current.currentTime) // Tempo atual em segundos
-        }
-    }
-
-    const handleSeek = (e) => {
-        const progress = e.target.value
-        if (audioRef.current) {
-            audioRef.current.currentTime = progress // Atualiza o tempo com base na barra de progresso
-        }
-    }
-
-    const formatTime = (time) => {
-        const minutes = Math.floor(time / 60)
-        const seconds = Math.floor(time % 60)
-        return `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`
-    }
-
-    const togglePlay = () => {
-        if (audioRef.current.paused) {
-            audioRef.current.play()
-        } else {
-            audioRef.current.pause()
-        }
-    }
+    const { audioRef } = useMusicPlayerContext()
+    const { togglePlay } = usePlayerFunctions()
 
     return (
         <section className={styles.MusicPlayer}>
             <div className={styles.MusicPlayer__player}>
-                <Player
-                    src={music}
-                    reference={audioRef}
-                    onLoadedMetadata={handleLoadedMetadata}
-                    onTimeUpdate={handleTimeUpdate}
-                />
-
+                <Player src={music} />
                 <MusicInfo title={musics[0].title} />
-
-                <MusicBar
-                    duration={duration}
-                    currentTime={currentTime}
-                    onChange={handleSeek}
-                />
-
-                <div>
-                    <span>{formatTime(currentTime)}</span> / <span>{formatTime(duration)}</span>
-                </div>
-
+                <MusicBar />
+                <Timer />
                 <div className={styles.MusicPlayer__controls}>
                     <PlayerBtn >
                         <BiSkipPrevious />

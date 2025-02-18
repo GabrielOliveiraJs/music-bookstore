@@ -1,6 +1,10 @@
+import { useMusicPlayerContext } from '../../../Contexts/MusicPlayer'
+import { usePlayerFunctions } from '../../../Hooks/usePlayerFunctions'
 import styles from './MusicBar.module.css'
 
-const MusicBar = ({ duration, currentTime, onChange }) => {
+const MusicBar = () => {
+  const { duration, currentTime } = useMusicPlayerContext()
+  const { handleSeek } = usePlayerFunctions()
   return (
     <input
       className={styles.musicBar}
@@ -8,7 +12,7 @@ const MusicBar = ({ duration, currentTime, onChange }) => {
       min="0"
       max={duration}
       value={currentTime}
-      onChange={onChange}
+      onChange={handleSeek}
     />
   )
 }
