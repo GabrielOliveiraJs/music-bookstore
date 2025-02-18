@@ -28,9 +28,16 @@ export function usePlayerFunctions() {
         return `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`
     }
 
-    const togglePlay = () => {
+    const togglePlay = async () => {
         if (audioRef.current.paused) {
-            audioRef.current.play()
+            try {
+                await audioRef.current.play()
+                // A reprodução começou com sucesso
+            } catch (error) {
+                if (error.name !== 'AbortError') {
+                    console.error('Erro ao tentar reproduzir o áudio:', error)
+                }
+            }
         } else {
             audioRef.current.pause()
         }

@@ -3,12 +3,12 @@
         "id": 1,
         "title": "Firework - Katy Perry (Cover by First To Eleven)",
         "artist": "First To Eleven",
-        "scr": "../../assets/musics/Firework - Katy Perry (Cover by First To Eleven).mp3"
+        "file": "firework"
     },
     {
         "id": 2,
         "title": "Sweet Child O Mine - Guns N' Roses (Cover by First To Eleven)",
         "artist": "First To Eleven",
-        "scr": "../../assets/musics/Sweet Child O' Mine - Guns n Roses (Cover by First To Eleven).mp3"
+        "file": "sweetChild"
     }
 ]

@@ -1,21 +1,30 @@
-import { useMusicListContext } from '../../../Contexts/MusicList'
-import { useMusicPlayerContext } from '../../../Contexts/MusicPlayer'
-import { usePlayerFunctions } from '../../../Hooks/usePlayerFunctions'
+import { useMusicListContext } from '../../../Contexts/MusicList';
+import { useMusicPlayerContext } from '../../../Contexts/MusicPlayer';
+import { usePlayerFunctions } from '../../../Hooks/usePlayerFunctions';
 
 const Player = () => {
-    const { audioRef } = useMusicPlayerContext()
-    const { handleLoadedMetadata, handleTimeUpdate } = usePlayerFunctions()
-    const { selectedMusic } = useMusicListContext()
+    const { audioRef } = useMusicPlayerContext();
+    const { handleLoadedMetadata, handleTimeUpdate } = usePlayerFunctions();
+    const { selectedMusic } = useMusicListContext();
+
+    // Carrega dinamicamente os arquivos de áudio
+    const musicContext = require.context('../../../assets/musics', false, /\.mp3$/);
+
+    const musicFiles = musicContext.keys().reduce((acc, key) => {
+        const musicName = key.replace('./', '').replace('.mp3', '');
+        acc[musicName] = musicContext(key);
+        return acc;
+    }, {});
 
     return (
         <audio
-            src={selectedMusic && selectedMusic.src}
+            src={selectedMusic && musicFiles[selectedMusic.file]}
             ref={audioRef}
             onLoadedMetadata={handleLoadedMetadata}
             onTimeUpdate={handleTimeUpdate}
-            controls={false} // Desabilita/Habilita os controles padrão
+            controls={false}
         />
-    )
-}
+    );
+};
 
-export default Player
+export default Player;
