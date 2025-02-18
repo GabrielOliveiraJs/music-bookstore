@@ -7,6 +7,7 @@ import MusicBar from './MusicBar/Index'
 import Player from './Player/Index'
 import MusicInfo from './MusicInfo/Index'
 import music from '../../assets/musics/Firework - Katy Perry (Cover by First To Eleven).mp3'
+import { useAudioRefContext } from '../../Contexts/AudioRef'
 
 const musics = [
     {
@@ -17,7 +18,7 @@ const musics = [
 ]
 
 const MusicPlayer = () => {
-    const audioRef = useRef(null)
+    const { audioRef } = useAudioRefContext()
     const [duration, setDuration] = useState(0) // Duração total da música
     const [currentTime, setCurrentTime] = useState(0) // Tempo atual da música
 
